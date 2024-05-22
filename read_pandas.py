@@ -1,7 +1,6 @@
-# %%
-
 # Paket für Bearbeitung von Tabellen
 import pandas as pd
+import numpy as np
 
 # Paket
 ## zuvor !pip install plotly
@@ -22,19 +21,40 @@ def read_my_csv():
     return df
 
 
-# %%
-
 def make_plot(df):
 
     # Erstellte einen Line Plot, der ersten 2000 Werte mit der Zeit aus der x-Achse
     fig = px.line(df.head(2000), x= "Zeit in ms", y="Messwerte in mV")
     return fig
 
-#%% Test
 
-#df = read_my_csv()
-#fig = make_plot(df)
+def read_activity_csv():
+    df = pd.read_csv("data/activities/activity.csv", sep=",")
+    n = df["Duration"].sum()
+    df["time"]= np.arange(0,n)
+    return df
 
-#fig.show()
+def power_mean():
+    p_mean = df["PowerOriginal"].mean()
+    return p_mean
+    
+def power_max():
+    p_max = df["PowerOriginal"].max()
+    return p_max
 
-# %%
+def make_power_HR_plot():
+    fig = px.line(df, x="time", y=['PowerOriginal', 'HeartRate'] )
+    return fig
+
+if __name__ == "__main__":
+    df = read_activity_csv()
+    print(df.head())
+    print(power_mean())
+    print(power_max())
+    fig = make_power_HR_plot()
+    fig.show()
+    
+
+
+
+
