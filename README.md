@@ -19,7 +19,7 @@ Folgende Werte werden im Plot dargestellt:
 
 3. pip install -r requirements.txt
 
-4. streamlit run app.py
+4. streamlit run main.py
 
 5. http:// link für Streamlit
 
