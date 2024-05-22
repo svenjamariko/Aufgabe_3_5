@@ -67,9 +67,25 @@ def calculate_zones(df, max_hr):
     df['zone 3'] = (df['HeartRate'] >= zone_2_max) & (df['HeartRate'] < zone_3_max)
     df['zone 4'] = (df['HeartRate'] >= zone_3_max) & (df['HeartRate'] < zone_4_max)
     df['zone 5'] = (df['HeartRate'] >= zone_4_max) & (df['HeartRate'] < zone_5_max)
-
-
     return df
+
+def calculate_time_in_zones(df,max_hr):
+    time_in_zones = [ df[df['zone 1']]['Duration'].sum(),
+        df[df['zone 2']]['Duration'].sum(),
+        df[df['zone 3']]['Duration'].sum(),
+        df[df['zone 4']]['Duration'].sum(),
+        df[df['zone 5']]['Duration'].sum()]
+    return time_in_zones
+
+def calculate_avg_power_in_zones(df, max_hr):
+    avg_power_in_zones = [
+        df[df['zone 1']]['PowerOriginal'].mean(),
+        df[df['zone 2']]['PowerOriginal'].mean(),
+        df[df['zone 3']]['PowerOriginal'].mean(),
+        df[df['zone 4']]['PowerOriginal'].mean(),
+        df[df['zone 5']]['PowerOriginal'].mean()
+    ]
+    return avg_power_in_zones
 
 if __name__ == "__main__":
     df = read_activity_csv()
@@ -77,13 +93,19 @@ if __name__ == "__main__":
     print(power_mean())
     print(power_max())
     fig = make_power_HR_plot(df)
-    fig.show()
+    #fig.show()
     max_hr = calculate_max_hr(df)
     mean_hr = calculate_mean_hr(df)
     zones = calculate_zones(df, max_hr)
     print(max_hr, mean_hr, zones)
     df = calculate_zones(df,max_hr)
     print(df["zone 1"])
+    time_in_zones = calculate_time_in_zones(df,max_hr)
+    print(time_in_zones)
+    avg_power_in_zones = calculate_avg_power_in_zones(df, max_hr)
+    print(avg_power_in_zones)
+
+
     
 
 
