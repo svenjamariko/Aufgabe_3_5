@@ -15,7 +15,7 @@ Folgende Werte werden im Plot dargestellt:
  # Schritte zur Installation und zum Starten der App
 1. git clone (https://github.com/dein-benutzername/dein-repo.git)
 
-2. python -m venv env
+2. python -m venv .venv
 
 3. pip install -r requirements.txt
 
