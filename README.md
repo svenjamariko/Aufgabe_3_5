@@ -4,13 +4,22 @@
 README.md
 # Anleitung zur Verwendung des Codes
 **Dieses Repository enthält Code, der entwickelt wurde, um Daten aus einer CSV-Datei zu lesen, sie zu sortieren und sie dann in einem interaktiven Plot darzustellen.**
+# Werte im Code
 
-Folgende Werte werden im Plot dargestellt:
-- Mittelwert der Leistung
-- Maximalwert der Leistung
-- Leistung und Herzfrequenz über die Zeit
-- 5 Herzfrequenz - Zonen
-  - https://www.polar.com/blog/de/effektives-training-mit-herzfrequenz-zonen/
+Einige wichtige Werte werden direkt im Code berechnet und definiert. Diese Werte umfassen:
+
+- _Mittelwert der Leistung:_ Der durchschnittliche Leistungswert über den gesamten Zeitraum.
+- _Maximalwert der Leistung:_ Der höchste gemessene Leistungswert.
+- _Herzfrequenzzonen:_ Fünf definierte Zonen basierend auf der Herzfrequenz.
+    - mehr unter: https://www.polar.com/blog/de/effektives-training-mit-herzfrequenz-zonen/
+
+# Werte in Plots
+
+Die Ergebnisse der Analyse werden in Plots dargestellt, die folgende Informationen zeigen:
+
+- _Leistung über die Zeit:_ Ein Linienplot, der die Leistung im Verlauf der Zeit darstellt.
+- _Herzfrequenz über die Zeit:_ Ein Linienplot, der die Herzfrequenz im Verlauf der Zeit darstellt.
+
   
  # Schritte zur Installation und zum Starten der App
 1. git clone
