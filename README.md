@@ -13,7 +13,7 @@ Folgende Werte werden im Plot dargestellt:
   - https://www.polar.com/blog/de/effektives-training-mit-herzfrequenz-zonen/
   
  # Schritte zur Installation und zum Starten der App
-1. git clone (https://github.com/dein-benutzername/dein-repo.git)
+1. git clone
 
 2. python -m venv .venv
 
