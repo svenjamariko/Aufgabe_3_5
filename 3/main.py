@@ -1,6 +1,8 @@
 import streamlit as st
 from read_pandas import read_my_csv
 from read_pandas import make_plot
+from read_pandas import read_activity_csv
+from read_pandas import make_power_HR_plot
 
 
 # Wo startet sie Zeitreihe
@@ -21,5 +23,7 @@ with tab1:
 with tab2:
     st.header("Power-Data")
     st.write("# My Plot")
-    dfa = read_activity_csv()
-    fig = make_plot(dfa)    
+    df = read_activity_csv()
+    fig = make_power_HR_plot(df)
+
+    st.plotly_chart(fig)

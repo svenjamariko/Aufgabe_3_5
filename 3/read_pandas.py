@@ -42,7 +42,7 @@ def power_max():
     p_max = df["PowerOriginal"].max()
     return p_max
 
-def make_power_HR_plot():
+def make_power_HR_plot(df):
     fig = px.line(df, x="time", y=['PowerOriginal', 'HeartRate'] )
     return fig
 
@@ -51,7 +51,7 @@ if __name__ == "__main__":
     print(df.head())
     print(power_mean())
     print(power_max())
-    fig = make_power_HR_plot()
+    fig = make_power_HR_plot(df)
     fig.show()
     
 
