@@ -46,6 +46,31 @@ def make_power_HR_plot(df):
     fig = px.line(df, x="time", y=['PowerOriginal', 'HeartRate'] )
     return fig
 
+def calculate_max_hr(df):
+    max_hr = df['HeartRate'].max()
+    return max_hr
+
+def calculate_mean_hr(df):          
+    mean_hr = df['HeartRate'].mean()
+    return mean_hr
+
+def calculate_zones(df, max_hr):
+    zone_1_min = 0.5 * max_hr
+    zone_1_max = 0.6 * max_hr
+    zone_2_max = 0.7 * max_hr
+    zone_3_max = 0.8 * max_hr
+    zone_4_max = 0.9 * max_hr
+    zone_5_max = 1 * max_hr
+
+    df['zone 1'] = (df['HeartRate'] >= zone_1_min) & (df['HeartRate'] < zone_1_max)
+    df['zone 2'] = (df['HeartRate'] >= zone_1_max) & (df['HeartRate'] < zone_2_max)
+    df['zone 3'] = (df['HeartRate'] >= zone_2_max) & (df['HeartRate'] < zone_3_max)
+    df['zone 4'] = (df['HeartRate'] >= zone_3_max) & (df['HeartRate'] < zone_4_max)
+    df['zone 5'] = (df['HeartRate'] >= zone_4_max) & (df['HeartRate'] < zone_5_max)
+
+
+    return df
+
 if __name__ == "__main__":
     df = read_activity_csv()
     print(df.head())
@@ -53,6 +78,12 @@ if __name__ == "__main__":
     print(power_max())
     fig = make_power_HR_plot(df)
     fig.show()
+    max_hr = calculate_max_hr(df)
+    mean_hr = calculate_mean_hr(df)
+    zones = calculate_zones(df, max_hr)
+    print(max_hr, mean_hr, zones)
+    df = calculate_zones(df,max_hr)
+    print(df["zone 1"])
     
 
 
