@@ -20,3 +20,6 @@ with tab1:
 
 with tab2:
     st.header("Power-Data")
+    st.write("# My Plot")
+    dfa = read_activity_csv()
+    fig = make_plot(dfa)    
