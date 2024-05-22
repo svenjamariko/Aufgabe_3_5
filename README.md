@@ -21,9 +21,10 @@ Folgende Werte werden im Plot dargestellt:
 
 4. streamlit run main.py
 
-5. http:// link für Streamlit
+5. Streamlit link: http://localhost:8501
 
-BILD
+<img width="785" alt="image" src="https://github.com/svenjamariko/Aufgabe_3_5/assets/163292776/e5d578e1-0a23-4d53-a56d-c7154da619a3">
+
 
 
 :round_pushpin: Die benötigten Bibliotheken für diese App sind in der Datei `requirements.txt` aufgelistet.
