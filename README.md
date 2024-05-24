@@ -102,5 +102,5 @@ Nimmt ein DataFrame `df_pc`, das die Leistungswerte für verschiedene Intervalle
 
 ![image](https://github.com/svenjamariko/Aufgabe_3_5/assets/163292776/51ad39d4-3da2-42d8-ba08-acf747962659)
 
-:round_pushpin: Die benötigten Bibliotheken für diese App sind in der Datei `requirements.txt` aufgelistet.
+:round_pushpin: Die benötigten Bibliotheken sind in der Datei `requirements.txt` aufgelistet.
 
