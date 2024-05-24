@@ -13,14 +13,30 @@ def make_power_plot(df):
     return fig 
 
 def find_best_effort(df, time, f_s):
-    df["PowerOriginal"] = df["PowerOriginal"].rolling(window=int(time*f_s)).mean() 
-    max_power = df["PowerOriginal"].max()
-    return max_power
- 
-   
+    rolling_power = df["PowerOriginal"].rolling(window=int(time*f_s)).mean() 
+    max_power = rolling_power.max()
+    return max_power # max power in the frame: time seconds, f_s Hz
+
+def maxPowerValues():
+    PowerValues = []
+    PowerValues.append(find_best_effort(df, 1, 1))
+    PowerValues.append(find_best_effort(df, 30, 1))
+    PowerValues.append(find_best_effort(df, 60, 1))
+    PowerValues.append(find_best_effort(df, 300, 1))
+    PowerValues.append(find_best_effort(df, 600, 1))
+    PowerValues.append(find_best_effort(df, 1200, 1))
+    print(PowerValues)
+    return PowerValues
+
+def make_powerline_plot(df):
+    time = [1, 30, 60, 300, 600, 1200]
+    fig = px.line(df, x=time, y=['PowerValues'] )
+    return fig
+
 
 if __name__ == "__main__":
     df = read_activity_csv()
-    fig = make_power_plot(df)
-    #fig.show()
-    print(find_best_effort(df, 10, 1)) # 10 seconds, 1 Hz
+    fig = make_powerline_plot(df)
+    #best_power = find_best_effort(df, 30, 1)
+    fig.show()
+    maxPowerValues= maxPowerValues()
