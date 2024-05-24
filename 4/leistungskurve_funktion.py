@@ -17,7 +17,7 @@ def find_best_effort(df, time, f_s):
     max_power = rolling_power.max()
     return max_power # max power in the frame: time seconds, f_s Hz
 
-def maxPowerValues():
+def maxPowerValues(df):
     PowerValues = []
     PowerValues.append(find_best_effort(df, 1, 1))
     PowerValues.append(find_best_effort(df, 30, 1))
@@ -28,7 +28,7 @@ def maxPowerValues():
     #print(PowerValues)
     time = [1, 30, 60, 300, 600, 1200]
     PowerValuesD ={"Interval in s": time, "Power Values in W": PowerValues}
-    df_pc = pd. DataFrame(PowerValuesD)
+    df_pc = pd.DataFrame(PowerValuesD)
     print(df_pc)
     return df_pc
 
@@ -41,7 +41,7 @@ def make_powerline_plot(df_pc):
 
 if __name__ == "__main__":
     df = read_activity_csv()
-    df_pc= maxPowerValues()
+    df_pc= maxPowerValues(df)
     fig = make_powerline_plot(df_pc)
     fig.show()
     
