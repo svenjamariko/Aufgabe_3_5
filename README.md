@@ -40,6 +40,10 @@ Die Ergebnisse der Analyse werden in Plots dargestellt, die folgende Information
 
 :round_pushpin: Die benötigten Bibliotheken für diese App sind in der Datei `requirements.txt` aufgelistet.
 
+
+
+
+
 # Aufgabe 4: Power Curve
 
 ## Übersicht
