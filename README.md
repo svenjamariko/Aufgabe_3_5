@@ -46,9 +46,8 @@ Die Ergebnisse der Analyse werden in Plots dargestellt, die folgende Information
 
 Dieses Repository enthält ein Python-Skript, das Aktivitätsdaten aus einer CSV-Datei verarbeitet, verschiedene Leistungsmetriken berechnet und die Daten mithilfe von Plotly visualisiert. Das Skript liest die Aktivitätsdaten, berechnet die besten Leistungswerte über verschiedene Zeitintervalle und erstellt Diagramme zur Visualisierung der Leistungsdaten und der Leistungskurve.
 
-## Anforderungen
+## Anforderungen 
 
-- Python 3.x
 - pandas
 - numpy
 - plotly
