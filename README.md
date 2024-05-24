@@ -71,7 +71,7 @@ Das Skript führt die folgenden Schritte aus:
 ### Funktionen
 
 #### `read_activity_csv()`
-Liest die CSV-Datei unter `data/activities/activity.csv` und gibt ein DataFrame mit den Aktivitätsdaten zurück. Die Funktion fügt auch eine `time`-Spalte hinzu, die die verstrichene Zeit darstellt.
+Liest die CSV-Datei ein und gibt ein DataFrame mit den Aktivitätsdaten zurück. Die Funktion fügt auch eine `time`-Spalte hinzu, die die verstrichene Zeit darstellt.
 
 #### `make_power_plot(df)`
 Nimmt ein DataFrame `df` und erstellt ein Liniendiagramm der ursprünglichen Leistungsdaten mithilfe von Plotly.
