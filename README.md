@@ -42,15 +42,60 @@ Die Ergebnisse der Analyse werden in Plots dargestellt, die folgende Information
 
 # Aufgabe 4: Power Curve
 
-**Dieses Repository enthält ein Python-Skript zur Analyse von Leistungsdaten aus Aktivitätsdateien. Es liest Aktivitätsdaten aus einer CSV-Datei, berechnet verschiedene Leistungskennwerte und visualisiert diese in Form von einem Diagramm.**
+## Übersicht
 
-## Funktionen
+Dieses Repository enthält ein Python-Skript, das Aktivitätsdaten aus einer CSV-Datei verarbeitet, verschiedene Leistungsmetriken berechnet und die Daten mithilfe von Plotly visualisiert. Das Skript liest die Aktivitätsdaten, berechnet die besten Leistungswerte über verschiedene Zeitintervalle und erstellt Diagramme zur Visualisierung der Leistungsdaten und der Leistungskurve.
 
-- _**Daten einlesen**:_ CSV-Datei mit Aktivitätsdaten einlesen.
-- _**Leistungsdiagramm erstellen**:_ Ein Liniendiagramm der Originalleistungsdaten erstellen.
--_ **Beste Leistung berechnen**:_ Die beste Durchschnittsleistung für verschiedene Zeitintervalle berechnen.
-- _**Leistungskurve erstellen**_: Ein Diagramm der besten Durchschnittsleistungen für verschiedene Zeitintervalle erstellen.
+## Anforderungen
 
+- Python 3.x
+- pandas
+- numpy
+- plotly
 
+Die erforderlichen Bibliotheken können mit pip installiert werden:
 
+```sh
+pip install pandas numpy plotly
+```
+
+## Beschreibung
+
+Das Skript führt die folgenden Schritte aus:
+
+1. **Aktivitäts-CSV lesen**: Liest eine CSV-Datei mit Aktivitätsdaten und fügt eine Zeitspalte hinzu.
+2. **Leistungsdiagramm erstellen**: Erstellt ein Liniendiagramm der Leistungsdaten über die Zeit.
+3. **Beste Leistung finden**: Berechnet die maximale gleitende Durchschnittsleistung für angegebene Zeitintervalle.
+4. **Maximale Leistungswerte**: Berechnet die besten Leistungswerte für bestimmte Intervalle und erstellt ein DataFrame.
+5. **Leistungskurvendiagramm erstellen**: Erstellt ein Leistungskurvendiagramm, das die besten Leistungswerte für verschiedene Intervalle zeigt.
+
+### Funktionen
+
+#### `read_activity_csv()`
+Liest die CSV-Datei unter `data/activities/activity.csv` und gibt ein DataFrame mit den Aktivitätsdaten zurück. Die Funktion fügt auch eine `time`-Spalte hinzu, die die verstrichene Zeit darstellt.
+
+#### `make_power_plot(df)`
+Nimmt ein DataFrame `df` und erstellt ein Liniendiagramm der ursprünglichen Leistungsdaten mithilfe von Plotly.
+
+#### `find_best_effort(df, time, f_s)`
+Berechnet die maximale Durchschnittsleistung über ein angegebenes Zeitintervall `time` mit einer Abtastfrequenz `f_s`. Gibt den maximalen Leistungswert zurück.
+
+#### `maxPowerValues(df)`
+Berechnet die besten Leistungswerte für die Intervalle 1s, 30s, 60s, 300s, 600s und 1200s. Gibt ein DataFrame mit diesen Leistungswerten und den entsprechenden Intervallen zurück.
+
+#### `make_powerline_plot(df_pc)`
+Nimmt ein DataFrame `df_pc`, das die Leistungswerte für verschiedene Intervalle enthält, und erstellt mithilfe von Plotly ein Leistungskurvendiagramm.
+
+## Anwendung
+
+1. **CSV-Datei vorbereiten**: Stellen Sie sicher, dass die CSV-Datei `activity.csv` im richtigen Verzeichnis abgelegt ist. Die CSV sollte eine Spalte `Duration` und eine Spalte `PowerOriginal` enthalten.
+2. **Skript ausführen**: Führen Sie das Skript mit Python aus:
+
+   ```sh
+   python main.py
+   ```
+
+3. **Diagramme anzeigen**: Das Skript erzeugt und zeigt das Leistungskurvendiagramm mithilfe von Plotly an.
+
+![image](https://github.com/svenjamariko/Aufgabe_3_5/assets/163292776/51ad39d4-3da2-42d8-ba08-acf747962659)
 
