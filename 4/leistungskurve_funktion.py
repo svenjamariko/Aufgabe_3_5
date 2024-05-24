@@ -25,18 +25,24 @@ def maxPowerValues():
     PowerValues.append(find_best_effort(df, 300, 1))
     PowerValues.append(find_best_effort(df, 600, 1))
     PowerValues.append(find_best_effort(df, 1200, 1))
-    print(PowerValues)
-    return PowerValues
-
-def make_powerline_plot(df):
+    #print(PowerValues)
     time = [1, 30, 60, 300, 600, 1200]
-    fig = px.line(df, x=time, y=['PowerValues'] )
+    PowerValuesD ={"Interval in s": time, "Power Values in W": PowerValues}
+    df_pc = pd. DataFrame(PowerValuesD)
+    print(df_pc)
+    return df_pc
+
+def make_powerline_plot(df_pc):
+    
+    fig = px.line(df_pc, x="Interval in s", y='Power Values in W' )
+
     return fig
 
 
 if __name__ == "__main__":
     df = read_activity_csv()
-    fig = make_powerline_plot(df)
-    #best_power = find_best_effort(df, 30, 1)
+    df_pc= maxPowerValues()
+    fig = make_powerline_plot(df_pc)
     fig.show()
-    maxPowerValues= maxPowerValues()
+    
+
