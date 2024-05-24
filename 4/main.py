@@ -9,5 +9,4 @@ from leistungskurve_funktion import make_powerline_plot
 df = read_activity_csv()
 df_pc= maxPowerValues(df)
 fig = make_powerline_plot(df_pc)
-fig.update_layout(title = "Power Curve")
 fig.show()

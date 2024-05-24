@@ -35,7 +35,9 @@ def maxPowerValues(df):
 def make_powerline_plot(df_pc):
     
     fig = px.line(df_pc, x="Interval in s", y='Power Values in W' )
-
+    fig.update_layout(title = "Power Curve")
+    fig.update_layout(xaxis= dict(tickmode = 'array',
+        tickvals = [1, 30, 60, 300, 600, 1200]))
     return fig
 
 
