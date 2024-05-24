@@ -1,4 +1,6 @@
-# Interaktiver Plot - Leistungstest :chart_with_upwards_trend::chart_with_downwards_trend:
+# Programmierübung 2 Aufgaben 3-5
+
+# Aufgabe 3: Interaktiver Plot - Leistungstest :chart_with_upwards_trend::chart_with_downwards_trend:
 > [!NOTE]
 >_Um diese Schritte in VS Code durchzuführen, müssen Sie zunächst sicherstellen, dass Sie Python und VS Code installiert haben._
 README.md
@@ -38,5 +40,17 @@ Die Ergebnisse der Analyse werden in Plots dargestellt, die folgende Information
 
 :round_pushpin: Die benötigten Bibliotheken für diese App sind in der Datei `requirements.txt` aufgelistet.
 
-   
+# Aufgabe 4: Power Curve
+
+**Dieses Repository enthält ein Python-Skript zur Analyse von Leistungsdaten aus Aktivitätsdateien. Es liest Aktivitätsdaten aus einer CSV-Datei, berechnet verschiedene Leistungskennwerte und visualisiert diese in Form von einem Diagramm.**
+
+## Funktionen
+
+- _**Daten einlesen**:_ CSV-Datei mit Aktivitätsdaten einlesen.
+- _**Leistungsdiagramm erstellen**:_ Ein Liniendiagramm der Originalleistungsdaten erstellen.
+-_ **Beste Leistung berechnen**:_ Die beste Durchschnittsleistung für verschiedene Zeitintervalle berechnen.
+- _**Leistungskurve erstellen**_: Ein Diagramm der besten Durchschnittsleistungen für verschiedene Zeitintervalle erstellen.
+
+
+
 
