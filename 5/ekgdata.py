@@ -64,7 +64,9 @@ if __name__ == "__main__":
     #print(ekg_dict)
     ekg = EKGdata(ekg_dict)
     #print(ekg.df.head())
-    ekg_tests = EKGdata.get_ekg_list(person_data)
-    print(ekg_tests)
     Ekg_1 = EKGdata.load_by_id(1)
-    print(Ekg_1)
+    #print(Ekg_1)
+    df = pd.read_csv(r'data/ekg_data/01_Ruhe.txt', sep='\t', header=None, names=['EKG in mV','Time in ms',])
+    peaks = EKGdata.find_peaks(df["EKG in mV"].copy(), 340, 5)
+    print(peaks)
+
