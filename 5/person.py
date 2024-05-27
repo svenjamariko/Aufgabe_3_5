@@ -78,5 +78,5 @@ if __name__ == "__main__":
     print(Julian.calculate_age())
     print(Julian.calc_max_heart_rate())
 
-    person = Person.load_by_id(persons, 2)
+    person = Person.load_by_id(persons, 3)
     print(person.__dict__)
