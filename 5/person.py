@@ -48,11 +48,16 @@ class Person:
         self.lastname = person_dict["lastname"]
         self.picture_path = person_dict["picture_path"]
         self.id = person_dict["id"]
+        self.age = self.calculate_age()
 
     def calculate_age(self):
         aktuelles_jahr = date.today().year
         age  = aktuelles_jahr - self.date_of_birth
         return int(age)
+    
+    def calc_max_heart_rate(self):
+        max_hr = 220 - self.age 
+        return max_hr
 
 if __name__ == "__main__":
     print("This is a module with some functions to read the person data")
@@ -63,3 +68,4 @@ if __name__ == "__main__":
     Julian_dict = Person.find_person_data_by_name("Huber, Julian")
     Julian = Person(Julian_dict)
     print(Julian.calculate_age())
+    print(Julian.calc_max_heart_rate())
