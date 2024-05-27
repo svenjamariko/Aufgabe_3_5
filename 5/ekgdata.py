@@ -17,12 +17,54 @@ class EKGdata:
         self.df = pd.read_csv(self.data, sep='\t', header=None, names=['EKG in mV','Time in ms',])
 
 
+    def load_by_id(ekg_id):
+        file = open("data/person_db.json")
+        person_data = json.load(file)
+
+        for person in person_data:
+            ekg_tests = person['ekg_tests']
+            for ekg in ekg_tests:
+                if ekg["id"] == ekg_id:
+                    return ekg
+            return None
+        
+
+    def find_peaks(series, threshold, respacing_factor=5):
+    
+    # Respace the series
+        series = series.iloc[::respacing_factor]
+    
+    # Filter the series
+        series = series[series>threshold]
+
+
+        peaks = []
+        last = 0
+        current = 0
+        next = 0
+
+        for index, row in series.items():
+            last = current
+            current = next
+            next = row
+
+            if last < current and current > next and current > threshold:
+                peaks.append(index-respacing_factor)
+
+        return peaks
+        
+
 
 if __name__ == "__main__":
-    print("This is a module with some functions to read the EKG data")
+    #print("This is a module with some functions to read the EKG data")
     file = open("data/person_db.json")
     person_data = json.load(file)
+    #print(person_data)
     ekg_dict = person_data[0]["ekg_tests"][0]
-    print(ekg_dict)
+    #print(ekg_dict)
     ekg = EKGdata(ekg_dict)
-    print(ekg.df.head())
+    #print(ekg.df.head())
+    ekg_tests = EKGdata.get_ekg_list(person_data)
+    print(ekg_tests)
+    Ekg_1 = EKGdata.load_by_id(1)
+    print(Ekg_1)
