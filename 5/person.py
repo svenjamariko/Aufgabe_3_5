@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 
 class Person:
     
@@ -48,9 +49,16 @@ class Person:
         self.picture_path = person_dict["picture_path"]
         self.id = person_dict["id"]
 
+    def calculate_age(self):
+        today = datetime.today()
+        birthdate = datetime.strptime(self.date_of_birth, "%d.%m.%Y").date()
+        age = today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
+        return int(age)
+
 if __name__ == "__main__":
     print("This is a module with some functions to read the person data")
     persons = Person.load_person_data()
     person_names = Person.get_person_list(persons)
     print(person_names)
     print(Person.find_person_data_by_name("Huber, Julian"))
+    print(Person.calculate_age("Huber, Julian"))
