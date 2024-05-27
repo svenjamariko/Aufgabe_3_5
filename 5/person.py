@@ -1,5 +1,5 @@
 import json
-from datetime import datetime
+from datetime import date
 
 class Person:
     
@@ -50,9 +50,8 @@ class Person:
         self.id = person_dict["id"]
 
     def calculate_age(self):
-        today = datetime.today()
-        birthdate = datetime.strptime(self.date_of_birth, "%d.%m.%Y").date()
-        age = today.year - date_of_birth.year - ((today.month, today.day) < (date_of_birth.month, date_of_birth.day))
+        aktuelles_jahr = date.today().year
+        age  = aktuelles_jahr - self.date_of_birth
         return int(age)
 
 if __name__ == "__main__":
@@ -61,4 +60,6 @@ if __name__ == "__main__":
     person_names = Person.get_person_list(persons)
     print(person_names)
     print(Person.find_person_data_by_name("Huber, Julian"))
-    print(Person.calculate_age("Huber, Julian"))
+    Julian_dict = Person.find_person_data_by_name("Huber, Julian")
+    Julian = Person(Julian_dict)
+    print(Julian.calculate_age())
