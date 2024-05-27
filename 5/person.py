@@ -52,7 +52,7 @@ class Person:
     def calculate_age(self):
         today = datetime.today()
         birthdate = datetime.strptime(self.date_of_birth, "%d.%m.%Y").date()
-        age = today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
+        age = today.year - date_of_birth.year - ((today.month, today.day) < (date_of_birth.month, date_of_birth.day))
         return int(age)
 
 if __name__ == "__main__":
