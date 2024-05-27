@@ -58,6 +58,9 @@ class Person:
     def calc_max_heart_rate(self):
         max_hr = 220 - self.age 
         return max_hr
+    
+    def load_by_id():
+        
 
 if __name__ == "__main__":
     print("This is a module with some functions to read the person data")
