@@ -58,6 +58,14 @@ class Person:
     def calc_max_heart_rate(self):
         max_hr = 220 - self.age 
         return max_hr
+    
+    def load_by_id(persons, id):
+        for person in persons:
+            if person["id"] == id:
+                return Person(person)
+        return None
+
+        
 
 if __name__ == "__main__":
     print("This is a module with some functions to read the person data")
@@ -69,3 +77,6 @@ if __name__ == "__main__":
     Julian = Person(Julian_dict)
     print(Julian.calculate_age())
     print(Julian.calc_max_heart_rate())
+
+    person = Person.load_by_id(persons, 2)
+    print(person.__dict__)
