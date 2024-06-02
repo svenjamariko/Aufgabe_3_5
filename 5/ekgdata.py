@@ -1,6 +1,7 @@
 import json
 import pandas as pd
 import numpy as np
+import plotly.express as px
 
 # %% Objekt-Welt
 
@@ -62,7 +63,10 @@ class EKGdata:
         heart_rate_times = peak_times_sec[1:]
         return heart_rate_times, heart_rate_at_peaks
 
-
+    def make_ekg_plot(df):
+        fig = px.line(df, x="Time in ms", y=['EKG in mV'])
+        return fig
+# %% Testen der Funktionen
 
 if __name__ == "__main__":
     #print("This is a module with some functions to read the EKG data")
@@ -80,6 +84,8 @@ if __name__ == "__main__":
     #print(peaks)
     heart_rate_times, heart_rate_at_peaks = EKGdata.estimate_hr(peaks)
     #print(heart_rate_times)
-    print(heart_rate_at_peaks)
-    
+    #print(heart_rate_at_peaks)
+    fig = EKGdata.make_ekg_plot(df)
+    fig.show()
+
 
