@@ -10,37 +10,31 @@ import plotly.graph_objects as go
 
 class EKGdata:
 
-## Konstruktor der Klasse soll die Daten einlesen
-
+    # Konstruktor der Klasse soll die Daten einlesen
     def __init__(self, ekg_dict):
-        pass
         self.id = ekg_dict["id"]
         self.date = ekg_dict["date"]
         self.data = ekg_dict["result_link"]
-        self.df = pd.read_csv(self.data, sep='\t', header=None, names=['EKG in mV','Time in ms',])
-        #self.peaks = self.find_peaks()
+        self.df = pd.read_csv(self.data, sep='\t', header=None, names=['EKG in mV', 'Time in ms'])
+        self.df["Time in s"] = self.df["Time in ms"] / 1000  # Convert milliseconds to seconds
 
-
+    @staticmethod
     def load_by_id(ekg_id):
         file = open("data/person_db.json")
         person_data = json.load(file)
-
         for person in person_data:
             ekg_tests = person['ekg_tests']
             for ekg in ekg_tests:
                 if ekg["id"] == ekg_id:
                     return ekg
-            return None
-        
+        return None
 
+    @staticmethod
     def find_peaks(series, threshold, respacing_factor=5):
-    
-    # Respace the series
+        # Respace the series
         series = series.iloc[::respacing_factor]
-    
-    # Filter the series
-        series = series[series>threshold]
-
+        # Filter the series
+        series = series[series > threshold]
 
         peaks = []
         last = 0
@@ -53,10 +47,11 @@ class EKGdata:
             next = row
 
             if last < current and current > next and current > threshold:
-                peaks.append(index-respacing_factor)
+                peaks.append(index - respacing_factor)
 
         return peaks
-        
+
+    @staticmethod
     def estimate_hr(peaks):
         peak_times_sec = np.array(peaks) / 1000
         rr_intervals = np.diff(peak_times_sec)
@@ -64,30 +59,37 @@ class EKGdata:
         heart_rate_times = peak_times_sec[1:]
         return heart_rate_times, heart_rate_at_peaks, peak_times_sec
 
-    def make_ekg_plot(peak_times_sec, df):
-        fig = px.line(df, x="Time in s", y=['EKG in mV'])
-        fig.add_trace(go.Scatter(x=df["Time in ms"].iloc[peaks], y=df["EKG in mV"].iloc[peaks], mode='markers', name='Peaks'))
+    @staticmethod
+    def make_ekg_plot(peaks, df):
+        fig = px.line(df, x="Time in s", y='EKG in mV')
+        fig.add_trace(go.Scatter(x=df["Time in s"].iloc[peaks], y=df["EKG in mV"].iloc[peaks], mode='markers', name='Peaks'))
         return fig
+
+
 # %% Testen der Funktionen
 
 if __name__ == "__main__":
-    #print("This is a module with some functions to read the EKG data")
+    # Load the JSON data
     file = open("data/person_db.json")
     person_data = json.load(file)
-    #print(person_data)
     ekg_dict = person_data[0]["ekg_tests"][0]
-    #print(ekg_dict)
+    
+    # Create an instance of EKGdata
     ekg = EKGdata(ekg_dict)
-    #print(ekg.df.head())
+    
+    # Load EKG data by ID
     Ekg_1 = EKGdata.load_by_id(1)
-    #print(Ekg_1)
-    df = pd.read_csv(r'data/ekg_data/01_Ruhe.txt', sep='\t', header=None, names=['EKG in mV','Time in ms',])
+    
+    # Read EKG data from file
+    df = pd.read_csv(r'data/ekg_data/01_Ruhe.txt', sep='\t', header=None, names=['EKG in mV', 'Time in ms'])
+    df["Time in s"] = df["Time in ms"] / 1000  # Convert milliseconds to seconds
+    
+    # Find peaks
     peaks = EKGdata.find_peaks(df["EKG in mV"].copy(), 340, 5)
-    #print(peaks)
+    
+    # Estimate heart rate
     heart_rate_times, heart_rate_at_peaks, peak_time_sec = EKGdata.estimate_hr(peaks)
-    #print(heart_rate_times)
-    #print(heart_rate_at_peaks)
-    fig = EKGdata.make_ekg_plot(peak_time_sec, df)
+    
+    # Create and display the EKG plot
+    fig = EKGdata.make_ekg_plot(peaks, df)
     fig.show()
-
-
