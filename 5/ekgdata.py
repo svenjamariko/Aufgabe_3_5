@@ -58,9 +58,9 @@ class EKGdata:
     def estimate_hr(peaks):
         peak_times_sec = np.array(peaks) / 1000
         rr_intervals = np.diff(peak_times_sec)
-        hr = 60 / np.mean(rr_intervals)
-        heart_rate_times = peak_times_sec[:-1] + rr_intervals / 2
-        return heart_rate_times, hr
+        heart_rate_at_peaks = 60 / rr_intervals
+        heart_rate_times = peak_times_sec[1:]
+        return heart_rate_times, heart_rate_at_peaks
 
 
 
@@ -78,7 +78,8 @@ if __name__ == "__main__":
     df = pd.read_csv(r'data/ekg_data/01_Ruhe.txt', sep='\t', header=None, names=['EKG in mV','Time in ms',])
     peaks = EKGdata.find_peaks(df["EKG in mV"].copy(), 340, 5)
     #print(peaks)
-    heart_rate_times, hr = EKGdata.estimate_hr(peaks)
-    print(hr)
+    heart_rate_times, heart_rate_at_peaks = EKGdata.estimate_hr(peaks)
     #print(heart_rate_times)
+    print(heart_rate_at_peaks)
+    
 
