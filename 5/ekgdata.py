@@ -2,6 +2,7 @@ import json
 import pandas as pd
 import numpy as np
 import plotly.express as px
+import plotly.graph_objects as go
 
 # %% Objekt-Welt
 
@@ -61,10 +62,11 @@ class EKGdata:
         rr_intervals = np.diff(peak_times_sec)
         heart_rate_at_peaks = 60 / rr_intervals
         heart_rate_times = peak_times_sec[1:]
-        return heart_rate_times, heart_rate_at_peaks
+        return heart_rate_times, heart_rate_at_peaks, peak_times_sec
 
-    def make_ekg_plot(df):
-        fig = px.line(df, x="Time in ms", y=['EKG in mV'])
+    def make_ekg_plot(peak_times_sec, df):
+        fig = px.line(df, x="Time in s", y=['EKG in mV'])
+        fig.add_trace(go.Scatter(x=df["Time in ms"].iloc[peaks], y=df["EKG in mV"].iloc[peaks], mode='markers', name='Peaks'))
         return fig
 # %% Testen der Funktionen
 
@@ -82,10 +84,10 @@ if __name__ == "__main__":
     df = pd.read_csv(r'data/ekg_data/01_Ruhe.txt', sep='\t', header=None, names=['EKG in mV','Time in ms',])
     peaks = EKGdata.find_peaks(df["EKG in mV"].copy(), 340, 5)
     #print(peaks)
-    heart_rate_times, heart_rate_at_peaks = EKGdata.estimate_hr(peaks)
+    heart_rate_times, heart_rate_at_peaks, peak_time_sec = EKGdata.estimate_hr(peaks)
     #print(heart_rate_times)
     #print(heart_rate_at_peaks)
-    fig = EKGdata.make_ekg_plot(df)
+    fig = EKGdata.make_ekg_plot(peak_time_sec, df)
     fig.show()
 
 
