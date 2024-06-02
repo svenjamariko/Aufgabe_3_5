@@ -64,7 +64,9 @@ class EKGdata:
         fig = px.line(df, x="Time in s", y='EKG in mV')
         fig.add_trace(go.Scatter(x=df["Time in s"].iloc[peaks], y=df["EKG in mV"].iloc[peaks], mode='markers', name='Peaks'))
         return fig
-
+    def make_hf_plot (heart_rate_times, heart_rate_at_peaks):
+        fig = px.line(x=heart_rate_times, y=heart_rate_at_peaks)
+        return fig
 
 # %% Testen der Funktionen
 
@@ -92,4 +94,8 @@ if __name__ == "__main__":
     
     # Create and display the EKG plot
     fig = EKGdata.make_ekg_plot(peaks, df)
+    fig.show()
+
+    # Create and display the heart rate plot
+    fig = EKGdata.make_hf_plot(heart_rate_times, heart_rate_at_peaks)
     fig.show()
