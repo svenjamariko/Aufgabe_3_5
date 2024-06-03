@@ -104,3 +104,88 @@ Nimmt ein DataFrame `df_pc`, das die Leistungswerte für verschiedene Intervalle
 
 :round_pushpin: Die benötigten Bibliotheken sind in der Datei `requirements.txt` aufgelistet.
 
+
+# Aufgabe 5: Dashboard Integration I :anatomical_heart:
+# README
+
+## EKG APP
+
+### Beschreibung
+
+Die EKG APP ist ein Dashboard, das mithilfe von Streamlit erstellt wurde und es ermöglicht, EKG-Daten von verschiedenen Versuchspersonen zu visualisieren. Die App bietet Funktionen zur Auswahl von Versuchspersonen, zur Anzeige der zugehörigen Bilder und zur Darstellung der EKG-Daten als Zeitreihe und Herzfrequenzdiagramme.
+
+### Anforderungen
+
+- Python 3.7 oder höher
+- Abhängigkeiten aus `requirements.txt`
+
+### Installation
+
+1. **Clone das Repository**:
+   ```bash
+   git clone <repository_url>
+   cd <repository_directory>
+   ```
+
+2. **Erstelle und aktiviere eine virtuelle Umgebung**:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+   ```
+
+3. **Installiere die Abhängigkeiten**:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+### Verwendung
+
+1. **Starte die Streamlit App**:
+   ```bash
+   streamlit run ekg_app.py
+   ```
+
+2. **Benutzeroberfläche**:
+
+   - **Versuchsperson auswählen**: Eine Dropdown-Liste ermöglicht die Auswahl einer Versuchsperson.
+   - **Datum auswählen**: Nach der Auswahl einer Versuchsperson kann das Datum eines EKG-Tests ausgewählt werden.
+   - **Bild anzeigen**: Das Bild der ausgewählten Versuchsperson wird angezeigt.
+   - **EKG-Daten anzeigen**: Die EKG-Daten der ausgewählten Person und des ausgewählten Datums werden als Plot dargestellt.
+   - **Herzfrequenzdiagramm**: Ein Diagramm zur Schätzung der Herzfrequenz wird angezeigt.
+
+### Projektstruktur
+
+```
+main.py               # Hauptcode der Streamlit App
+read_person_data.py      # Modul zum Lesen der Personendaten
+ekgdata.py               # Modul zur Verarbeitung und Visualisierung der EKG-Daten
+person.py                # Modul zur Definition der Person-Klasse
+data/
+  pictures/              # Ordner für die Bilder der Versuchspersonen
+  ekg_data/              # Ordner für die EKG-Daten
+requirements.txt         # Liste der Python-Abhängigkeiten
+```
+
+### Funktionen und Module
+
+- **read_person_data.py**:
+  - `get_person_list(data)`: Gibt eine Liste der Versuchspersonen zurück.
+  - `load_person_data()`: Lädt die Personendaten aus einer Quelle.
+  - `find_person_data_by_name(name)`: Findet die Daten einer Versuchsperson nach Name.
+
+- **ekgdata.py**:
+  - `EKGdata`: Klasse zur Handhabung und Visualisierung der EKG-Daten.
+  - `find_peaks(data, threshold, distance)`: Findet die Spitzenwerte in den EKG-Daten.
+  - `make_ekg_plot(peaks, data)`: Erstellt ein EKG-Plot.
+  - `estimate_hr(peaks)`: Schätzt die Herzfrequenz basierend auf den EKG-Spitzen.
+  - `make_hf_plot(times, heart_rates)`: Erstellt ein Herzfrequenz-Plot.
+
+- **person.py**:
+  - `Person`: Klasse zur Repräsentation einer Versuchsperson.
+
+
+
+
+
+
+
