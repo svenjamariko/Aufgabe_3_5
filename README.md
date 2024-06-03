@@ -114,11 +114,6 @@ Nimmt ein DataFrame `df_pc`, das die Leistungswerte für verschiedene Intervalle
 
 Die EKG APP ist ein Dashboard, das mithilfe von Streamlit erstellt wurde und es ermöglicht, EKG-Daten von verschiedenen Versuchspersonen zu visualisieren. Die App bietet Funktionen zur Auswahl von Versuchspersonen, zur Anzeige der zugehörigen Bilder und zur Darstellung der EKG-Daten als Zeitreihe und Herzfrequenzdiagramme.
 
-### Anforderungen
-
-- Python 3.7 oder höher
-- Abhängigkeiten aus `requirements.txt`
-
 ### Installation
 
 1. **Clone das Repository**:
@@ -142,7 +137,7 @@ Die EKG APP ist ein Dashboard, das mithilfe von Streamlit erstellt wurde und es 
 
 1. **Starte die Streamlit App**:
    ```bash
-   streamlit run ekg_app.py
+   streamlit run main.py
    ```
 
 2. **Benutzeroberfläche**:
@@ -156,7 +151,7 @@ Die EKG APP ist ein Dashboard, das mithilfe von Streamlit erstellt wurde und es 
 ### Projektstruktur
 
 ```
-main.py               # Hauptcode der Streamlit App
+main.py                  # Hauptcode der Streamlit App
 read_person_data.py      # Modul zum Lesen der Personendaten
 ekgdata.py               # Modul zur Verarbeitung und Visualisierung der EKG-Daten
 person.py                # Modul zur Definition der Person-Klasse
@@ -182,6 +177,9 @@ requirements.txt         # Liste der Python-Abhängigkeiten
 
 - **person.py**:
   - `Person`: Klasse zur Repräsentation einer Versuchsperson.
+
+<img width="652" alt="image" src="https://github.com/svenjamariko/Aufgabe_3_5/assets/163292776/ae3b499d-763e-44f7-9c8d-1fca71e77158">
+
 
 
 
