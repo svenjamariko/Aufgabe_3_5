@@ -58,15 +58,18 @@ class EKGdata:
         rr_intervals = np.diff(peak_times_sec)
         heart_rate_at_peaks = 60 / rr_intervals
         heart_rate_times = peak_times_sec[1:]
-        return heart_rate_times, heart_rate_at_peaks, peak_times_sec
+        return heart_rate_times, heart_rate_at_peaks
 
     @staticmethod
     def make_ekg_plot(peaks, df):
         fig = px.line(df, x="Time in s", y='EKG in mV')
         fig.add_trace(go.Scatter(x=df["Time in s"].iloc[peaks], y=df["EKG in mV"].iloc[peaks], mode='markers', name='Peaks'))
         return fig
-    def make_hf_plot (heart_rate_times, heart_rate_at_peaks):
+    
+    @staticmethod
+    def make_hf_plot(heart_rate_times, heart_rate_at_peaks):
         fig = px.line(x=heart_rate_times, y=heart_rate_at_peaks)
+        
         return fig
 
 # %% Testen der Funktionen
@@ -91,7 +94,7 @@ if __name__ == "__main__":
     peaks = EKGdata.find_peaks(df["EKG in mV"].copy(), 340, 5)
     
     # Estimate heart rate
-    heart_rate_times, heart_rate_at_peaks, peak_time_sec = EKGdata.estimate_hr(peaks)
+    heart_rate_times, heart_rate_at_peaks = EKGdata.estimate_hr(peaks)
     
     # Create and display the EKG plot
     fig = EKGdata.make_ekg_plot(peaks, df)

@@ -1,8 +1,12 @@
 import streamlit as st
 import read_person_data
 import ekgdata
+import pandas as pd
 import matplotlib.pyplot as plt
 from PIL import Image
+from person import Person
+import numpy as np
+import os
 
 def callback():
     print(f"The user has changed to{st.session_state.aktuelle_versuchsperson} and {st.session_state.aktuelles_ekg}")
@@ -23,7 +27,7 @@ if 'picture_path' not in st.session_state:
 
 ## Session State für Pfad zu EKG Daten 
 if 'ekg_path' not in st.session_state:
-    st.session_state.ekg_path = ''
+    st.session_state.ekg_path = None
 
 # Design des Dashboards
 
@@ -42,27 +46,39 @@ st.write("Der Name ist: ", st.session_state.aktuelle_versuchsperson)
 # Date input slot
 current_person_dict = read_person_data.find_person_data_by_name(st.session_state.aktuelle_versuchsperson)
 
-ekg_data = current_person_dict["ekg_tests"]
-ekg_datum = [ekg["date"] for ekg in ekg_data]
+current_person = Person(current_person_dict)
+
+ekg_tests = current_person_dict["ekg_tests"]
+ekg_dates = [ekg["date"] for ekg in ekg_tests]
 
 st.write("## Datum auswählen")
 st.session_state.aktuelles_ekg = st.selectbox(
     'EKG-Datum',
-    options = ekg_datum, key="sbEKGDatum",
+    options = ekg_dates, key="sbEKGDatum",
     on_change=callback)
-ekg_data = [ekg for ekg in ekg_data if ekg["date"] == st.session_state.aktuelles_ekg][0]
+selected_ekg = [ekg for ekg in ekg_tests if ekg["date"] == st.session_state.aktuelles_ekg][0]
 
 
-st.write("Das ausgewählte Datum ist:", ekg_data)
+st.write("Das ausgewählte Datum ist:", st.session_state.aktuelles_ekg)
+
+# create a new EKGdata object
+current_ekg = ekgdata.EKGdata(selected_ekg)
+st.session_state.ekg_path = current_ekg.data
 
 # TODO: Weitere Daten wie Geburtsdatum etc. schön anzeigen
 
 # Nachdem eine Versuchsperson ausgewählt wurde, die auch in der Datenbank ist
 # Finde den Pfad zur Bilddatei
+
+if os.path.exists(st.session_state.ekg_path):
+    st.write("EKG-Daten vorhanden")
+else:
+    st.write("EKG-Daten nicht vorhanden")
+
 if st.session_state.aktuelle_versuchsperson in person_names:
     person_data = read_person_data.find_person_data_by_name(st.session_state.aktuelle_versuchsperson)
     st.session_state.picture_path = person_data.get("picture_path", 'data/pictures/none.jpg')
-    st.session_state.ekg_path = person_data.get("ekg_path", '')  # Use .get to handle missing keys
+    st.session_state.ekg_path = person_data.get("ekg_path", 'data/ekg_data/01_Ruhe.txt')  # Use .get to handle missing keys
 
 # Bild anzeigen
 image = Image.open(st.session_state.picture_path)
@@ -71,20 +87,33 @@ st.image(image, caption=st.session_state.aktuelle_versuchsperson)
 # Öffne EKG-Daten
 # TODO: Für eine Person gibt es ggf. mehrere EKG-Daten. Diese müssen über den Pfad ausgewählt werden können
 # Vergleiche Bild und Person
-if st.session_state.ekg_path:
-    current_ekg_data = ekgdata.EKGdata(st.session_state.ekg_path)
+if st.session_state.ekg_path is not None:
+
+    # Lade die EKG-Daten im df
+    df = pd.read_csv(st.session_state.ekg_path, sep='\t', header=None, names=['EKG in mV', 'Time in ms'])
+    df["Time in s"] = df["Time in ms"] / 1000  # Convert milliseconds to seconds
+
+    # Detect the peaks
+    peaks = ekgdata.EKGdata.find_peaks(df["EKG in mV"].copy(), 340, 5)
 
     # EKG-Daten als Matplotlib Plot anzeigen
     # Nachdem die EKG, Daten geladen wurden
     # Erstelle den Plot als Attribut des Objektes
-    current_ekg_data.plot_time_series()
+    fig = ekgdata.EKGdata.make_ekg_plot(peaks, df)
     # Zeige den Plot an
-    st.pyplot(fig=current_ekg_data.fig)
+    st.plotly_chart(fig)
 
-    # Herzrate bestimmen
-    # Schätze die Herzrate 
-    current_ekg_data.estimate_hr()
-    # Zeige die Herzrate an
-    st.write("Herzrate ist: ", int(current_ekg_data.heat_rate))
+    # Plot the heart rate
+    heart_rate_times, heart_rate_at_peaks = ekgdata.EKGdata.estimate_hr(peaks)
+
+    #print(heart_rate_times)
+    #print('---')
+    #print(current_ekg)
+
+
+    fig2 = ekgdata.EKGdata.make_hf_plot(heart_rate_times, heart_rate_at_peaks)
+    st.plotly_chart(fig2)
+
+
 else:
     st.write("Keine EKG-Daten vorhanden.")
